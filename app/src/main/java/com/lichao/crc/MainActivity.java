@@ -12,11 +12,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText ed_input;
     private TextView tv_result;
     private Button btn_key, btn_copy;
+    private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_key = findViewById(R.id.btn_key);
         btn_copy = findViewById(R.id.btn_copy);
 
+        ed_input.setText(mSimpleDateFormat.format(System.currentTimeMillis()));
+
         btn_key.setOnClickListener(this);
         btn_copy.setOnClickListener(this);
     }
@@ -41,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_key:
                 String input = ed_input.getText().toString();
                 String result = CrcUtil.getCRC16(input);
-                tv_result.setText(input + result);
+                tv_result.setText(result);
                 break;
             case R.id.btn_copy:
                 //获取剪贴板管理器
